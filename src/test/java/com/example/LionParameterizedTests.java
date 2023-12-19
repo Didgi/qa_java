@@ -14,8 +14,6 @@ public class LionParameterizedTests {
     @Parameterized.Parameter
     public String gender;
     @Parameterized.Parameter(1)
-    public String ExceptionMessageExpected;
-    @Parameterized.Parameter(2)
     public boolean hasManeExpected;
 
     @Before
@@ -26,19 +24,16 @@ public class LionParameterizedTests {
     @Parameterized.Parameters
     public static Object[][] data() {
         return new Object[][]{
-                {"Самец", "", true},
-                {"Самка", "", false},
-                {"Оно", "Используйте допустимые значения пола животного - самец или самка", false}
+                {"Самец", true},
+                {"Самка", false}
         };
     }
 
     @Test
-    public void createLionDifferentGenderRightHasMane() throws Exception {
-        try {
-            Lion lion = new Lion(gender, feline);
-            Assert.assertEquals(hasManeExpected, lion.hasMane);
-        } catch (Exception e) {
-            Assert.assertEquals(ExceptionMessageExpected, e.getMessage());
-        }
+    public void createLionDifferentPositiveGenderRightHasMane() throws Exception {
+
+        Lion lion = new Lion(gender, feline);
+        Assert.assertEquals(hasManeExpected, lion.hasMane);
+
     }
 }

@@ -17,6 +17,7 @@ public class LionTests {
     @Mock
     Feline feline;
     Lion lion;
+    Lion lionNegative;
     @Before
     public void setUp() throws Exception {
         lion = new Lion("Самец", feline);
@@ -56,6 +57,12 @@ public class LionTests {
     public void getFoodDefaultShowsException() throws Exception {
         Mockito.when(feline.getFood("Хищник")).thenThrow(new Exception());
         lion.getFood();
+    }
+    @Test
+    public void createLionNegativeGenderShowsException() throws Exception {
+        String expectedMessage = "Используйте допустимые значения пола животного - самец или самка";
+        Exception exception = Assert.assertThrows(Exception.class, () -> lionNegative = new Lion("Оно", feline));
+        Assert.assertEquals(expectedMessage,exception.getMessage());
     }
 
 }
